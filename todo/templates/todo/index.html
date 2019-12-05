@@ -1,0 +1,92 @@
+<style>
+    .title-list{
+    color:#FFFFFF	;
+    background-color:#C0C0C0;	
+    text-align: center;
+    font-size:60;
+    }
+
+    .form-style{
+    font-size:40;
+    text-align:center;
+    }
+
+    input[type="text"] {
+    padding:12;
+    width:300;
+    font-size:18;
+    text-align: center;
+    margin-bottom:5;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    }
+
+    .hoge-style{
+    padding:5px 25px;
+    background-color:#EEEEEE;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    }
+
+    .yourTask-style{
+    text-align: center;
+    background-color:#00FFFF;
+    margin: 10px 450px 10px 450px;
+    border-radius: 10px; 
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    }
+
+    .importance-style{
+    margin-left:150;
+    }
+
+    .time-style{
+    text-align: right;
+    margin-right:200;
+    }
+
+</style>
+
+
+<html>
+    <head>
+        <meta charset="utf-8" />
+            <title>index</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class='title-list'>
+            <p>TODOリスト</p>
+        </div>
+        <a href="{% url 'logout' %}">ログアウト</a>
+        <div class='form-style'>
+        <form action="{% url 'post_new' %}" method="POST">{% csrf_token %}
+            {{ form.as_p }}
+             <input type="submit" class='hoge-style' value="送信">
+        </form>
+        </div>
+        <hr width='1200'>
+        {% for post in posts %}
+            <div class='importance-style'>
+            <h3>
+　　　　<a href="{% url 'important_rank' pk=post.pk %}">＋</a>重要度:{{post.importance}}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="{% url 'delete_post' pk=post.pk %}">完了</a>
+            </h3>
+            </div>
+            <div class='yourTask-style'>
+            <h2>{{ post.your_task }}</h2>
+            </div>
+            <div class='time-style'>
+            {{ post.published_date }}<br>
+            </div>
+            <hr width='1200'>
+         {% endfor %}    
+    </body>
+</html>
+
+
+
